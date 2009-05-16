@@ -4,6 +4,11 @@ require 'test/unit'
 require 'gcalcron'
 require 'pit'
 
+def new_instance
+  conf = Pit.get("gcalcron")
+  GCalCron.new conf["mail"],conf["pass"],conf["feed"]
+end
+
 class GCalCronTest < Test::Unit::TestCase
   def test_load
     assert GCalCron
@@ -12,16 +17,19 @@ class GCalCronTest < Test::Unit::TestCase
   end
 
   def test_new
-    conf = Pit.get("gcalcron")
-    gcalcron = GCalCron.new conf["mail"],conf["pass"],conf["feed"]
+    gcalcron = new_instance
     assert gcalcron
     assert gcalcron.cron
     assert gcalcron.cal
   end
 
   def test_gcal_access
-    conf = Pit.get("gcalcron")
-    gcalcron = GCalCron.new conf["mail"],conf["pass"],conf["feed"]
+    gcalcron = new_instance
     assert gcalcron.cal.events.class == Array
+  end
+
+  def test_cron_access
+    gcalcron = new_instance
+    assert gcalcron.cron.list.class == Array
   end
 end
