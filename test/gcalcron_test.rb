@@ -18,4 +18,10 @@ class GCalCronTest < Test::Unit::TestCase
     assert gcalcron.cron
     assert gcalcron.cal
   end
+
+  def test_gcal_access
+    conf = Pit.get("gcalcron")
+    gcalcron = GCalCron.new conf["mail"],conf["pass"],conf["feed"]
+    assert gcalcron.cal.events.class == Array
+  end
 end
