@@ -5,7 +5,7 @@ class GCalCron
       @cal = GoogleCalendar::Calendar::new @service,feed
       @raw = @service.query feed
       raise InvalidCalendarURL unless @raw.code == "200"
-      @events = get_events
+      @list = events
     end
     attr_reader :events
 
@@ -13,7 +13,7 @@ class GCalCron
 
     private
 
-    def get_events
+    def events
       REXML::Document.new(@raw.body).root.elements.each("entry"){}.map do |elem|
         elem.attributes["xmlns:gCal"] = "http://schemas.google.com/gCal/2005"
         elem.attributes["xmlns:gd"] = "http://schemas.google.com/g/2005"
