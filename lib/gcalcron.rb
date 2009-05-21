@@ -1,6 +1,8 @@
 require "rubygems"
 require "cronedit"
 require "gcalapi"
+require "time"
+require "date"
 require "gcalcron/cron"
 require "gcalcron/gcal"
 
