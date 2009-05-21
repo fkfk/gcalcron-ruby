@@ -25,13 +25,13 @@ class GCalCronTest < Test::Unit::TestCase
 
   def test_gcal_access
     gcalcron = new_instance
-    assert gcalcron.cal.events.class == Array
-    assert gcalcron.cal.events[0].recurrence
+    assert gcalcron.cal.list.is_a? Array
+    assert gcalcron.cal.list[0].recurrence
   end
 
   def test_cron_access
     gcalcron = new_instance
-    assert gcalcron.cron.list.class == Array
+    assert gcalcron.cron.list.is_a? Array
   end
 
   def test_check_update
